@@ -2,6 +2,7 @@ package dev.java10x.registrationsystem;
 
 import jakarta.persistence.*;
 
+// Teste do git log --oneline e do git commit --amend
 // JPA = Java Persistence API
 // Entity ele transforma uma classe em uma entidade do banco da dados
 @Entity // TODO: Eu vou criar no meu banco de dados com a tabela com as colunas nome, email, idade e id
