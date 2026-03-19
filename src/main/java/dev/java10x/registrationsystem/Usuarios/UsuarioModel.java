@@ -1,5 +1,6 @@
-package dev.java10x.registrationsystem;
+package dev.java10x.registrationsystem.Usuarios;
 
+import dev.java10x.registrationsystem.Missoes.MissoesModel;
 import jakarta.persistence.*;
 
 // Teste do git log --oneline e do git commit --amend
@@ -17,6 +18,11 @@ public class UsuarioModel {
     private String nome;
     private String email;
     private int idade;
+
+    // Relações sobre as tabelas
+    @ManyToOne //TODO:@ManyToOne - O usuario pode pegar apenas uma unica missao
+    @JoinColumn(name = "missoes_id") //TODO: Foreing Key ou chave estrangeira
+    private MissoesModel missoes;
 
     public UsuarioModel() {
     }

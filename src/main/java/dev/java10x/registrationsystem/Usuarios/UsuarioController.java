@@ -1,4 +1,4 @@
-package dev.java10x.registrationsystem;
+package dev.java10x.registrationsystem.Usuarios;
 
 import org.springframework.web.bind.annotation.*;
 
