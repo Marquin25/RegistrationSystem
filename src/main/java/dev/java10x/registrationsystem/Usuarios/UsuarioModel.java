@@ -20,7 +20,10 @@ public class UsuarioModel {
     private Long id;
 
     private String nome;
+
+    @Column(unique = true) // TODO: Essa coluna vai ser unica (Não pode ter email repetidos)
     private String email;
+
     private int idade;
 
     // Relações sobre as tabelas
