@@ -3,11 +3,17 @@ package dev.java10x.registrationsystem.Missoes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.java10x.registrationsystem.Usuarios.UsuarioModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "tb_missoes")
+@NoArgsConstructor // TODO: Esta criando um construtor sem argumento (No Args). Ele vem do LOMBOK
+@AllArgsConstructor // TODO: Esta criando um construtor com todos argumentos (AllArgs). Ele vem do LOMBOK
+@Data // TODO: Ela cria todos os Getters e Setters. Ela vem do LOMBOK
 public class MissoesModel {
 
     @Id
@@ -22,37 +28,4 @@ public class MissoesModel {
     @OneToMany(mappedBy = "missoes") // TODO:@OndeToMany - Uma missao pode ter varios usuarios
     @JsonIgnore
     private List<UsuarioModel> usuario;
-
-    public MissoesModel() {
-    }
-
-    public MissoesModel(Long id, String nome, String descricao, UsuarioModel usuario) {
-        this.id = id;
-        this.nome = nome;
-        this.dificuldade = descricao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDificuldade() {
-        return dificuldade;
-    }
-
-    public void setDificuldade(String dificuldade) {
-        this.dificuldade = dificuldade;
-    }
 }
