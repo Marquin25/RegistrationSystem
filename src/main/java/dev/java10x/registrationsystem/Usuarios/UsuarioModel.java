@@ -17,13 +17,16 @@ public class UsuarioModel {
     // TODO: Para gerar o Id automaticamente
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id")
     private Long id;
 
+    @Column (name = "nome")
     private String nome;
 
     @Column(unique = true) // TODO: Essa coluna vai ser unica (Não pode ter email repetidos)
     private String email;
 
+    @Column (name = "idade")
     private int idade;
 
     // Relações sobre as tabelas
