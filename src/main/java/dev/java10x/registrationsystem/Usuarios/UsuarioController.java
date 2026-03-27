@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
-@RequestMapping // TODO: É para colocar todas as rotas no mesmo local
+@RequestMapping("/usuario") // TODO: É para colocar todas as rotas no mesmo local
 public class UsuarioController {
 
     @Autowired //TODO:O @Autowired pega um objeto pronto e coloca dentro da sua classe sozinho
@@ -33,13 +33,13 @@ public class UsuarioController {
     }
 
     // Mostrar todos os usuarios (READ)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String todos() {
         return "Todos os usuarios";
     }
 
     // Mostrar usuario por ID (READ)
-    @GetMapping("/todosID")
+    @GetMapping("/listarID")
     public String mostrarTodosOsUsuarioPorId() {
         return "Usuario por Id ";
     }

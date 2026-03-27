@@ -3,7 +3,7 @@ package dev.java10x.registrationsystem.Missoes;
 import org.springframework.web.bind.annotation.*;
 
 @RestController //TODO: Esta roteando a nossa API
-@RequestMapping("missoes") //TODO: Mapear a nossa API
+@RequestMapping("/missoes") //TODO: Mapear a nossa API
 public class MissoesController {
 
     // GET: Mandar uma requisição para mostrar as missões (READ)
