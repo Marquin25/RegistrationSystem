@@ -41,9 +41,10 @@ public class UsuarioController {
     }
 
     // Mostrar usuario por ID (READ)
-    @GetMapping("/listarID")
-    public String mostrarTodosOsUsuarioPorId() {
-        return "Usuario por Id ";
+    //@PathVariable serve para pegar o id e colocar na URL, dessa forma fica localhost:8080/lista/ e o id do usuario
+    @GetMapping("/listar/{id}")
+    public UsuarioModel listarUsuarioPorId(@PathVariable Long id) {
+        return usuarioService.listarUsuarioPorId(id);
     }
 
     // Alterar dados do usuario (UPDATE)
