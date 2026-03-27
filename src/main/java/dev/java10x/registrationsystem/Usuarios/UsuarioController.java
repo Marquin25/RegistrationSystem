@@ -19,4 +19,41 @@ public class UsuarioController {
         return usuarioService.helloWorld("Marcus");
     }
 
+    // ==================
+    //       CRUD
+    // ==================
+    //TODO:CRUD: conjunto de operações básicas do sistema
+    //Create (Criar), Read (Ler), Update (Atualizar) e Delete (Deletar)
+    //Usado para manipular dados no banco
+
+    // Adicionar um novo usuario (CREATE)
+    @PostMapping("/adicionar")
+    public String adiconarNinja() {
+        return "Ninja adicionada com sucesso";
+    }
+
+    // Mostrar todos os usuarios (READ)
+    @GetMapping("/todos")
+    public String todos() {
+        return "Todos os usuarios";
+    }
+
+    // Mostrar usuario por ID (READ)
+    @GetMapping("/todosID")
+    public String mostrarTodosOsUsuarioPorId() {
+        return "Usuario por Id ";
+    }
+
+    // Alterar dados do usuario (UPDATE)
+    @PutMapping("/alterarID")
+    public String alterarUsuarioPorId() {
+        return "Alterar usuario por Id ";
+    }
+
+    // Deletar usuario (DELETE)
+    @DeleteMapping("/deletarID")
+    public String deletarUsuarioPorId() {
+        return "Deletar usuario por Id ";
+    }
+
 }
