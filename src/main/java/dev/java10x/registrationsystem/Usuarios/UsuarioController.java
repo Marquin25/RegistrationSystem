@@ -3,6 +3,8 @@ package dev.java10x.registrationsystem.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
 @RequestMapping("/usuario") // TODO: É para colocar todas as rotas no mesmo local
 public class UsuarioController {
@@ -28,14 +30,14 @@ public class UsuarioController {
 
     // Adicionar um novo usuario (CREATE)
     @PostMapping("/adicionar")
-    public String adiconarNinja() {
-        return "Ninja adicionada com sucesso";
+    public String adiconarUsuario() {
+        return "Usuario adicionada com sucesso";
     }
 
     // Mostrar todos os usuarios (READ)
     @GetMapping("/listar")
-    public String todos() {
-        return "Todos os usuarios";
+    public List<UsuarioModel> listarUsuarios() {
+        return usuarioService.listarUsuarios();
     }
 
     // Mostrar usuario por ID (READ)
