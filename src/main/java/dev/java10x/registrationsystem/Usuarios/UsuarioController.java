@@ -29,12 +29,12 @@ public class UsuarioController {
     //Usado para manipular dados no banco
 
     // Adicionar um novo usuario (CREATE)
-    @PostMapping("/adicionar")
-    public String adiconarUsuario() {
-        return "Usuario adicionada com sucesso";
+    @PostMapping("/criar")
+    public UsuarioModel criarUsuario(@RequestBody UsuarioModel usuario) {
+        return usuarioService.criarUsuario(usuario) ;
     }
 
-    // Mostrar todos os usuarios (READ)
+    // Mostrar todos os usuarios (READ)p
     @GetMapping("/listar")
     public List<UsuarioModel> listarUsuarios() {
         return usuarioService.listarUsuarios();

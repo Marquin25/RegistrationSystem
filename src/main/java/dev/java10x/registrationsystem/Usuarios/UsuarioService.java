@@ -19,13 +19,18 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    // Criar um novo usuario
+    public UsuarioModel criarUsuario(UsuarioModel usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
     // Listar todos os usuarios
     public List<UsuarioModel> listarUsuarios() {
         return usuarioRepository.findAll();
     }
 
     // Listar todos os meus usuarios por ID
-    public  UsuarioModel listarUsuarioPorId(Long id) {
+    public UsuarioModel listarUsuarioPorId(Long id) {
         Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
         return usuarioPorId.orElse(null);
     }
