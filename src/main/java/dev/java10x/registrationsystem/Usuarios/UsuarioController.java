@@ -54,9 +54,10 @@ public class UsuarioController {
     }
 
     // Deletar usuario (DELETE)
-    @DeleteMapping("/deletarID")
-    public String deletarUsuarioPorId() {
-        return "Deletar usuario por Id ";
+    //@PathVariable serve para pegar o id que o usuario colocar e colocar na URL, dessa forma fica localhost:8080/lista/ e o id do usuario
+    @DeleteMapping("/deletar/{id}")
+    public void deletarUsuarioPorId(@PathVariable Long id) {
+        usuarioService.deletarUsuarioPorId(id);
     }
 
 }

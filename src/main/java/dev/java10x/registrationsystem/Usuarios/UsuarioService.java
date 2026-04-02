@@ -35,4 +35,13 @@ public class UsuarioService {
         return usuarioPorId.orElse(null);
     }
 
+    // Alterar os dados do usuarios
+
+    // Deletar usuario (DELETE) DELETE * FROM TB_CADASTRO WHERE id=?;
+    // Tem que ser um metodo VOID pois não é preciso retornar nada
+    public void deletarUsuarioPorId(Long id) {
+        Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
+        usuarioRepository.deleteById(id);
+    }
+
 }
