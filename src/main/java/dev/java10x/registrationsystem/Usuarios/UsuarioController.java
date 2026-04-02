@@ -34,7 +34,7 @@ public class UsuarioController {
         return usuarioService.criarUsuario(usuario) ;
     }
 
-    // Mostrar todos os usuarios (READ)p
+    // Mostrar todos os usuarios (READ)
     @GetMapping("/listar")
     public List<UsuarioModel> listarUsuarios() {
         return usuarioService.listarUsuarios();
@@ -48,9 +48,9 @@ public class UsuarioController {
     }
 
     // Alterar dados do usuario (UPDATE)
-    @PutMapping("/alterarID")
-    public String alterarUsuarioPorId() {
-        return "Alterar usuario por Id ";
+    @PutMapping("/alterar/{id}")
+    public UsuarioModel alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioModel usuario) {
+        return usuarioService.alterarUsuarioPorId(id, usuario);
     }
 
     // Deletar usuario (DELETE)
