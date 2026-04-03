@@ -14,14 +14,19 @@ public class UsuarioService {
     }
 
     private UsuarioRepository usuarioRepository;
+    private UsuarioMapper usuarioMapper;
 
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+
+    public UsuarioService(UsuarioRepository usuarioRepository, UsuarioMapper usuarioMapper) {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
     }
 
     // Criar um novo usuario
-    public UsuarioModel criarUsuario(UsuarioModel usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioDTO criarUsuario(UsuarioDTO usuarioDTO) {
+        UsuarioModel usuario = usuarioMapper.map(usuarioDTO);
+        usuario = usuarioRepository.save(usuario);
+        return usuarioMapper.map(usuario);
     }
 
     // Listar todos os usuarios
