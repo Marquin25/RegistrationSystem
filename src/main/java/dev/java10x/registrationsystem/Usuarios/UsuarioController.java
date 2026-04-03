@@ -36,20 +36,20 @@ public class UsuarioController {
 
     // Mostrar todos os usuarios (READ)
     @GetMapping("/listar")
-    public List<UsuarioModel> listarUsuarios() {
+    public List<UsuarioDTO> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
 
     // Mostrar usuario por ID (READ)
     //@PathVariable serve para pegar o id e colocar na URL, dessa forma fica localhost:8080/lista/ e o id do usuario
     @GetMapping("/listar/{id}")
-    public UsuarioModel listarUsuarioPorId(@PathVariable Long id) {
+    public UsuarioDTO listarUsuarioPorId(@PathVariable Long id) {
         return usuarioService.listarUsuarioPorId(id);
     }
 
     // Alterar dados do usuario (UPDATE)
     @PutMapping("/alterar/{id}")
-    public UsuarioModel alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioModel usuario) {
+    public UsuarioDTO alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioDTO usuario) {
         return usuarioService.alterarUsuarioPorId(id, usuario);
     }
 

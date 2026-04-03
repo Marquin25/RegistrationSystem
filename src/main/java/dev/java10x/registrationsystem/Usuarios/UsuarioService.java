@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // Aqui vai ficar o trabalho logico
 @Service // TODO: Vai indicar que é uma classe Service
@@ -30,29 +31,36 @@ public class UsuarioService {
     }
 
     // Listar todos os usuarios
-    public List<UsuarioModel> listarUsuarios() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> listarUsuarios() {
+        List<UsuarioModel> usuarios = usuarioRepository.findAll();
+        return usuarios.stream()
+                .map(usuarioMapper::map)
+                .collect(Collectors.toList());
     }
 
     // Listar todos os meus usuarios por ID
-    public UsuarioModel listarUsuarioPorId(Long id) {
+    public UsuarioDTO listarUsuarioPorId(Long id) {
         Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
-        return usuarioPorId.orElse(null);
+        return usuarioPorId.map(usuarioMapper::map).orElse(null);
     }
 
     // Alterar os dados do usuarios
-    public UsuarioModel alterarUsuarioPorId(Long id, UsuarioModel usuarioAlterado) {
-        if (usuarioRepository.existsById(id)) {
+    public UsuarioDTO alterarUsuarioPorId(Long id, UsuarioDTO usuarioDTO) {
+        Optional<UsuarioModel> usuarioExistente = usuarioRepository.findById(id);
+        if (usuarioExistente.isPresent()) {
+            UsuarioModel usuarioAlterado = usuarioMapper.map(usuarioDTO);
             usuarioAlterado.setId(id);
-            return usuarioRepository.save(usuarioAlterado);
+            UsuarioModel usuarioSalvo= usuarioRepository.save(usuarioAlterado);
+            return usuarioMapper.map(usuarioSalvo);
         }
         return null;
     }
 
+    
+
     // Deletar usuario (DELETE) DELETE * FROM TB_CADASTRO WHERE id=?;
     // Tem que ser um metodo VOID pois não é preciso retornar nada
     public void deletarUsuarioPorId(Long id) {
-        Optional<UsuarioModel> usuarioPorId = usuarioRepository.findById(id);
         usuarioRepository.deleteById(id);
     }
 
