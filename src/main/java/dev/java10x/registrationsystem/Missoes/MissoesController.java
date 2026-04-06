@@ -20,21 +20,22 @@ public class MissoesController {
 
     // POST - CRIAR
     @PostMapping("/criar")
-    public MissoesDTO criarMissao(@RequestBody MissoesDTO dto) {
-        return missoesService.criarMissao(dto);
+    public List<MissoesDTO> criarMissao(@RequestBody List<MissoesDTO> missoesDTO) {
+        return missoesDTO.stream()
+                .map(missoesService::criarMissao)
+                .toList();
     }
 
     // PUT - ALTERAR
     @PutMapping("/alterar/{id}")
-    public MissoesDTO alterarMissao(@PathVariable Long id,
-                                    @RequestBody MissoesDTO dto) {
-        return missoesService.alterarMissao(id, dto);
+    public MissoesDTO alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missoesDTO) {
+        return missoesService.alterarMissao(id, missoesDTO
+        );
     }
 
     // DELETE - DELETAR
     @DeleteMapping("/deletar/{id}")
-    public String deletarMissao(@PathVariable Long id) {
+    public void deletarMissao(@PathVariable Long id) {
         missoesService.deletarMissao(id);
-        return "Missao deletada com sucesso!";
     }
 }

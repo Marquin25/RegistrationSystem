@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 @Service
 public class MissoesService {
 
-    @Autowired
     private MissoesRepository missoesRepository;
-
-    @Autowired
     private MissoesMapper missoesMapper;
+
+    public MissoesService(MissoesMapper missoesMapper, MissoesRepository missoesRepository) {
+        this.missoesMapper = missoesMapper;
+        this.missoesRepository = missoesRepository;
+    }
 
     // LISTAR
     public List<MissoesDTO> listarMissoes() {
