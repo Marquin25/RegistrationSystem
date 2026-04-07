@@ -29,6 +29,9 @@ public class UsuarioModel {
     @Column (name = "idade")
     private int idade;
 
+    @Column(unique = true) // TODO: Essa coluna vai ser unica (Não pode ter CPF repetidos)
+    private String cpf;
+
     // Relações sobre as tabelas
     @ManyToOne //TODO:@ManyToOne - O usuario pode pegar apenas uma unica missao
     @JoinColumn(name = "missoes_id") //TODO: Foreing Key ou chave estrangeira

@@ -1,33 +1,41 @@
 package dev.java10x.registrationsystem.Missoes;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController //TODO: Esta roteando a nossa API
-@RequestMapping("/missoes") //TODO: Mapear a nossa API
+import java.util.List;
+
+@RestController
+@RequestMapping("/missoes")
 public class MissoesController {
 
-    // GET: Mandar uma requisição para mostrar as missões (READ)
+    @Autowired
+    private MissoesService missoesService;
+
+    // GET - LISTAR
     @GetMapping("/listar")
-    public String listarMissao() {
-        return "Missao listada com sucesso";
+    public List<MissoesDTO> listarMissoes() {
+        return missoesService.listarMissoes();
     }
 
-    // POST: Mandar uma requisição para criar as missões (CREATE)
-    @PostMapping("/cria")
-    public String criarMissao() {
-        return "Missao criada com sucesso";
+    // POST - CRIAR
+    @PostMapping("/criar")
+    public List<MissoesDTO> criarMissao(@RequestBody List<MissoesDTO> missoesDTO) {
+        return missoesDTO.stream()
+                .map(missoesService::criarMissao)
+                .toList();
     }
 
-    // PUT: Mandar uma requisição para alterar as missões (UPDATE)
-    @PutMapping ("/alterar")
-    public String alterarMissao() {
-        return "Missao alterada com sucesso";
+    // PUT - ALTERAR
+    @PutMapping("/alterar/{id}")
+    public MissoesDTO alterarMissao(@PathVariable Long id, @RequestBody MissoesDTO missoesDTO) {
+        return missoesService.alterarMissao(id, missoesDTO
+        );
     }
 
-    // DELETE: Mandar uma requisição para deletar as missões (DELETE)
-    @DeleteMapping("/deletar")
-    public String deletarMissao() {
-        return "Missao deletada com sucesso";
+    // DELETE - DELETAR
+    @DeleteMapping("/deletar/{id}")
+    public void deletarMissao(@PathVariable Long id) {
+        missoesService.deletarMissao(id);
     }
-
 }
