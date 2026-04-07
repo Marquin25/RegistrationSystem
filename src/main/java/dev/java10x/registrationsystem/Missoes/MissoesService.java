@@ -25,6 +25,13 @@ public class MissoesService {
                 .collect(Collectors.toList());
     }
 
+    //LISTAR POR ID
+    public MissoesDTO listarMissaoPorId(Long id) {
+        return missoesRepository.findById(id)
+                .map(missoesMapper::map)
+                .orElse(null);
+    }
+
     // CRIAR
     public MissoesDTO criarMissao(MissoesDTO dto) {
         MissoesModel model = missoesMapper.map(dto);
