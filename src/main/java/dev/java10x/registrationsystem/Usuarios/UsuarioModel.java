@@ -12,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor // TODO: Esta criando um construtor sem argumento (No Args). Ele vem do LOMBOK
 @AllArgsConstructor // TODO: Esta criando um construtor com todos argumentos (AllArgs). Ele vem do LOMBOK
 @Data // TODO: Ela cria todos os Getters e Setters. Ela vem do LOMBOK
+@ToString(exclude = "missoes")
 public class UsuarioModel {
 
     // TODO: Para gerar o Id automaticamente
