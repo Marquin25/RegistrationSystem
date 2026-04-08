@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/usuario") // TODO: É para colocar todas as rotas no mesmo local
 public class UsuarioController {
 
-    @Autowired //TODO:O @Autowired pega um objeto pronto e coloca dentro da sua classe sozinho
-    private UsuarioService usuarioService;
+    //@Autowired //TODO:O @Autowired pega um objeto pronto e coloca dentro da sua classe sozinho
+    private final UsuarioService usuarioService;
+
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
     @GetMapping("/boasVindas") //TODO: Vai puxar/pegar informações / localhost:8080/boasVindas
    // @PostMapping //TODO: Vai mandar informações

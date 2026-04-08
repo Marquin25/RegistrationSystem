@@ -11,8 +11,12 @@ import java.util.List;
 @RequestMapping("/missoes")
 public class MissoesController {
 
-    @Autowired
-    private MissoesService missoesService;
+    //@Autowired
+    private final MissoesService missoesService;
+
+    public MissoesController(MissoesService missoesService) {
+        this.missoesService = missoesService;
+    }
 
     // GET - LISTAR
     @GetMapping("/listar")
