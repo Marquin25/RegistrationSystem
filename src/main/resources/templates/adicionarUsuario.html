@@ -1,105 +1,109 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Usuário</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: #fff;
         }
 
-        h1 {
+        .container {
+            margin-top: 60px;
+        }
+
+        .card {
+            background-color: #1e293b;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
             text-align: center;
-            color: #333;
-        }
-
-        .form-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 450px;
-            margin: auto;
+            font-size: 1.4rem;
+            font-weight: bold;
         }
 
         label {
-            margin: 10px 0 5px;
-            display: block;
+            margin-top: 10px;
         }
 
         input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            background-color: #0f172a !important;
+            border: 1px solid #334155 !important;
+            color: #fff !important;
         }
 
-        button {
-            padding: 10px 15px;
+        input:focus {
+            box-shadow: none;
+            border-color: #6366f1 !important;
+        }
+
+        .btn-primary {
+            background: #6366f1;
             border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            width: 100%;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .btn-primary:hover {
+            background: #4f46e5;
         }
 
-        .mensagem {
-            color: green;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        a {
+        .btn-back {
             display: inline-block;
             margin-top: 10px;
+            color: #94a3b8;
             text-decoration: none;
-            color: #4CAF50;
         }
     </style>
 </head>
 
 <body>
 
-<h1 th:text="${usuario.id} == null ? 'Adicionar Usuário' : 'Editar Usuário'"></h1>
+<div class="container col-md-5">
 
-<div class="form-container">
+    <div class="card p-4">
 
-    <!-- Mensagem -->
-    <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
+        <div class="card-header text-white">
+            <span th:text="${usuario.id} == null ? '➕ Criar Usuário' : '✏️ Editar Usuário'"></span>
+        </div>
 
-    <!-- FORM (CREATE + UPDATE) -->
-    <form th:object="${usuario}"
-          th:action="${usuario.id} == null ? @{/usuario/ui/salvar} : @{'/usuario/ui/atualizar/' + ${usuario.id}}"
-          method="post">
+        <div class="card-body">
 
-        <label>Nome:</label>
-        <input type="text" th:field="*{nome}" required />
+            <form th:object="${usuario}"
+                  th:action="${usuario.id} == null ? @{/usuario/ui/salvar} : @{'/usuario/ui/atualizar/' + ${usuario.id}}"
+                  method="post">
 
-        <label>Email:</label>
-        <input type="email" th:field="*{email}" required />
+                <label>Nome</label>
+                <input type="text" class="form-control" th:field="*{nome}" required>
 
-        <label>CPF:</label>
-        <input type="text" th:field="*{cpf}" required />
+                <label>Email</label>
+                <input type="email" class="form-control" th:field="*{email}" required>
 
-        <label>Idade:</label>
-        <input type="number" th:field="*{idade}" required />
+                <label>CPF</label>
+                <input type="text" class="form-control" th:field="*{cpf}" required>
 
-        <button type="submit"
-                th:text="${usuario.id} == null ? 'Cadastrar Usuário' : 'Atualizar Usuário'">
-        </button>
+                <label>Idade</label>
+                <input type="number" class="form-control" th:field="*{idade}" required>
 
-    </form>
+                <button class="btn btn-primary w-100 mt-3">
+                    Salvar
+                </button>
 
-    <a th:href="@{/usuario/ui/listar}">Voltar para lista</a>
+            </form>
+
+            <a class="btn-back" th:href="@{/usuario/ui/listar}">
+                ← Voltar
+            </a>
+
+        </div>
+    </div>
 
 </div>
 
