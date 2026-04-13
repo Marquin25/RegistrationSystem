@@ -3,11 +3,13 @@ package dev.java10x.registrationsystem.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
+@Controller
+//@RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
 @RequestMapping("/usuario") // TODO: É para colocar todas as rotas no mesmo local
 public class UsuarioController {
 
@@ -67,18 +69,12 @@ public class UsuarioController {
 
     // Alterar dados do usuario (UPDATE)
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<String> alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioDTO usuario) {
+    public ResponseEntity<?> alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioDTO usuario) {
 
-        if (usuarioService.listarUsuarioPorId(id) != null) {
-            usuarioService.alterarUsuarioPorId(id, usuario);
-            return ResponseEntity.ok(
-                    "Usuario: " + usuario.getNome() + "\n" +
-                            "Email: " + usuario.getEmail() + "\n" +
-                            "ID: " + id + "\n" +
-                            "CPF: " + usuario.getCpf() + "\n" +
-                            "Missoes: " + usuario.getMissoes() + "\n" +
-                            "Alterado com sucesso!");
+        UsuarioDTO usuarioAtualizado = usuarioService.alterarUsuarioPorId(id, usuario);
 
+        if (usuarioAtualizado != null) {
+            return ResponseEntity.ok(usuarioAtualizado); // retorna objeto atualizado
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Usuario com ID: " + id + " não encontrado");
@@ -90,9 +86,11 @@ public class UsuarioController {
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<String> deletarUsuarioPorId(@PathVariable Long id) {
 
-        if (usuarioService.listarUsuarioPorId(id) != null) {
+        UsuarioDTO usuario = usuarioService.listarUsuarioPorId(id);
+
+        if (usuario != null) {
             usuarioService.deletarUsuarioPorId(id);
-            return ResponseEntity.ok("Usuario com ID " + id + " deletado com sucesso");
+            return ResponseEntity.ok("Usuario deletado com sucesso");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Usuario com ID: " + id + " não encontrado");

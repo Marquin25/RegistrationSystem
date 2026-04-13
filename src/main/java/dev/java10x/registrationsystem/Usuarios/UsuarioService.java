@@ -56,8 +56,6 @@ public class UsuarioService {
         return null;
     }
 
-    
-
     // Deletar usuario (DELETE) DELETE * FROM TB_CADASTRO WHERE id=?;
     // Tem que ser um metodo VOID pois não é preciso retornar nada
     public void deletarUsuarioPorId(Long id) {
