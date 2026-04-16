@@ -16,5 +16,6 @@ public class UsuarioDTO {
     private int idade;
     private String cpf;
     private MissoesModel missoes;
+    private Long missaoId;
 
 }

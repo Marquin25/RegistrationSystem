@@ -1,5 +1,9 @@
 package dev.java10x.registrationsystem.Usuarios;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-//@RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
+@RestController//TODO: Ele vai mapear esse arquivo do java (Controller.java) fazendo q ele vai avisar para o Java q isso é um Controller
 @RequestMapping("/usuario") // TODO: É para colocar todas as rotas no mesmo local
 public class UsuarioController {
 
@@ -25,6 +29,12 @@ public class UsuarioController {
    // @PutMapping //TODO: Vai alterar informações
    // @PatchMapping //TODO: Vai alterar informações
    // @DeleteMapping //TODO: Vai deletar as informaçoes
+    @Operation(
+            summary = "Mensagem de Boas-Vindas",
+            description = "Retorna uma mensagem simples de boas-vindas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Mensagem retornada com sucesso")
+    })
     public String boasVindas() {
         return usuarioService.helloWorld("Marcus");
     }
@@ -38,7 +48,16 @@ public class UsuarioController {
 
     // Adicionar um novo usuario (CREATE)
     @PostMapping("/criar")
-    public ResponseEntity<String> criarUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    @Operation(
+            summary = "Cria usuário",
+            description = "Cria um novo usuário e salva no banco de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Erro na requisição(dados inválidos)")
+    })
+    public ResponseEntity<String> criarUsuario(
+            @Parameter(description = "Dados do usuário a ser criado")
+            @RequestBody UsuarioDTO usuarioDTO) {
         UsuarioDTO novoUsuario = usuarioService.criarUsuario(usuarioDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Usuario criado com sucesso: " + novoUsuario.getNome() + " (ID: " + novoUsuario.getId() + ")");
@@ -46,6 +65,14 @@ public class UsuarioController {
 
     // Mostrar todos os usuarios (READ)
     @GetMapping("/listar")
+    @Operation(
+            summary = "Listar usuários",
+            description = "Retorna todos os usuários cadastrados"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista retornada com sucesso"),
+            @ApiResponse(responseCode = "204", description = "Nenhum usuário encontrado")
+    })
     public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
         List<UsuarioDTO> usuarios = usuarioService.listarUsuarios();
         if (usuarios.isEmpty()) {
@@ -57,7 +84,16 @@ public class UsuarioController {
     // Mostrar usuario por ID (READ)
     //@PathVariable serve para pegar o id e colocar na URL, dessa forma fica localhost:8080/lista/ e o id do usuario
     @GetMapping("/listar/{id}")
-    public ResponseEntity<?> listarUsuarioPorId(@PathVariable Long id) {
+    @Operation(
+            summary = "Buscar usuário por ID",
+            description = "Retorna um usuário específico com base no ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado, verifique se o ID esta correto")
+    })
+    public ResponseEntity<?> listarUsuarioPorId(
+            @Parameter(description = "ID do usuário", example = "1")
+            @PathVariable Long id) {
         UsuarioDTO usuario = usuarioService.listarUsuarioPorId(id);
         if (usuario != null) {
             return ResponseEntity.ok(usuario); // 200
@@ -69,7 +105,21 @@ public class UsuarioController {
 
     // Alterar dados do usuario (UPDATE)
     @PutMapping("/alterar/{id}")
-    public ResponseEntity<?> alterarUsuarioPorId(@PathVariable Long id, @RequestBody UsuarioDTO usuario) {
+    @Operation(
+            summary = "Atualizar usuário",
+            description = "Atualiza os dados de um usuário existente pelo ID"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos")
+    })
+    public ResponseEntity<?> alterarUsuarioPorId(
+            @Parameter(description = "ID do usuário", example = "1")
+            @PathVariable Long id,
+
+            @Parameter(description = "Novos dados do usuário")
+            @RequestBody UsuarioDTO usuario) {
 
         UsuarioDTO usuarioAtualizado = usuarioService.alterarUsuarioPorId(id, usuario);
 
@@ -84,6 +134,14 @@ public class UsuarioController {
     // Deletar usuario (DELETE)
     //@PathVariable serve para pegar o id que o usuario colocar e colocar na URL, dessa forma fica localhost:8080/lista/ e o id do usuario
     @DeleteMapping("/deletar/{id}")
+    @Operation(
+            summary = "Deletar usuário",
+            description = "Remove um usuário do sistema com base no ID"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário deletado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado")
+    })
     public ResponseEntity<String> deletarUsuarioPorId(@PathVariable Long id) {
 
         UsuarioDTO usuario = usuarioService.listarUsuarioPorId(id);

@@ -35,7 +35,7 @@ public class UsuarioModel {
 
     // Relações sobre as tabelas
     @ManyToOne //TODO:@ManyToOne - O usuario pode pegar apenas uma unica missao
-    @JoinColumn(name = "missoes_id") //TODO: Foreing Key ou chave estrangeira
+    @JoinColumn(name = "missao_id") //TODO: Foreing Key ou chave estrangeira
     private MissoesModel missoes;
 
 }

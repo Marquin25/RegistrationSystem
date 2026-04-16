@@ -33,6 +33,8 @@
 
         label {
             margin-top: 10px;
+            color: #94a3b8; /* cor da letra */
+            font-weight: 500;
         }
 
         input {
@@ -71,7 +73,7 @@
     <div class="card p-4">
 
         <div class="card-header text-white">
-            <span th:text="${usuario.id} == null ? '➕ Criar Usuário' : '✏️ Editar Usuário'"></span>
+            <span th:text="${usuario.id} == null ? 'Criar Usuário' : '✏️ Editar Usuário'"></span>
         </div>
 
         <div class="card-body">

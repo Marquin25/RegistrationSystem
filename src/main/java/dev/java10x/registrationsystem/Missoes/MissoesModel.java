@@ -31,7 +31,7 @@ public class MissoesModel {
 
     // Relações sobre as tabelas
     // Mappear essas tabelas e dar o nome da tabela que esta ligando no caso missioes
-    @OneToMany(mappedBy = "missoes") // TODO:@OndeToMany - Uma missao pode ter varios usuarios
+    @OneToMany(mappedBy = "missoes", cascade = CascadeType.ALL) // TODO:@OndeToMany - Uma missao pode ter varios usuarios
     @JsonIgnore //TODO: Ele va ignorar essa serialização (loop de serialização)
     private List<UsuarioModel> usuario;
 }

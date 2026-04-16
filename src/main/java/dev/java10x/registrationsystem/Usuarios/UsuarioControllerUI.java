@@ -83,4 +83,17 @@ public class UsuarioControllerUI {
 
         return "redirect:/usuario/ui/listar";
     }
+
+    @GetMapping("/{id}")
+    public String verUsuario(@PathVariable Long id, Model model) {
+        UsuarioDTO usuario = usuarioService.listarUsuarioPorId(id);
+
+        if (usuario == null) {
+            return "redirect:/usuario/ui/listar";
+        }
+
+        model.addAttribute("usuario", usuario);
+        return "detalhesUsuario";
+    }
+
 }
